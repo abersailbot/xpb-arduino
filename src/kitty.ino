@@ -8,7 +8,7 @@ CMPS10 cmps10; // compass
 
 char inData[6]; // Allocate some space for the string
 
-int DEBUG = 0;
+int DEBUG = 1;
 
 void setup() {
     Serial.begin(9600); //Begin at 9600

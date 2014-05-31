@@ -45,20 +45,20 @@ void getData() {
 }
 
 void move_rudder(int amount) {
-    turnAmount = constrain(turnAmount, 1060, 1920);
-    myRudderServo.writeMicroseconds(turnAmount);
+    amount = constrain(amount, 1060, 1920);
+    myRudderServo.writeMicroseconds(amount);
 }
 
 void move_sail(int amount) {
-    turnAmount = constrain(turnAmount, 1050, 1930);
-    mySailServo.writeMicroseconds(turnAmount);
+    amount = constrain(amount, 1050, 1930);
+    mySailServo.writeMicroseconds(amount);
 }
 
 int getAmount() {
-    int turnAmount;
-    turnAmount = (int) strtol(inData+1, NULL, 10);
-    Serial.println(turnAmount);
-    return turnAmount;
+    int amount;
+    amount = (int) strtol(inData+1, NULL, 10);
+    Serial.println(amount);
+    return amount;
 }
 
 float readCompass() {

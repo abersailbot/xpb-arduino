@@ -1,0 +1,3 @@
+[submodule "lib/CMPS10"]
+	path = lib/CMPS10
+	url = https://github.com/kragniz/CMPS10.git

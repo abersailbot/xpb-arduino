@@ -21,3 +21,9 @@ done for you), you can compile with:
 $ ino build
 $ ino upload
 ```
+
+Alternately, use make:
+
+```bash
+$ make install
+```

@@ -2,42 +2,46 @@
 #include <Servo.h>
 #include <Wire.h>
 
-Servo myRudderServo; // create servo object to control a servo 
-Servo mySailServo; // a maximum of eight servo objects can be created
+Servo myRudderServo;
+Servo mySailServo;
 CMPS10 cmps10; // compass
 
-char inData[6]; // Allocate some space for the string
+char inData[6]; // allocate some space for the string
 
 int DEBUG = 1;
 
 void setup() {
-    Serial.begin(9600); //Begin at 9600
-    //Use .attach for setting up connection to the servo
-    myRudderServo.attach(10, 1060, 1920); // Attach, with the output limited
-    // between 1000 and 2000 ms
-    mySailServo.attach(9, 1050, 1930); // Same, but between 1000 and 1850 ms
+    Serial.begin(9600);
+
+    myRudderServo.attach(10, 1060, 1920);
+    mySailServo.attach(9, 1050, 1930);
+
+    // set default positions
     myRudderServo.writeMicroseconds(1500);
     mySailServo.writeMicroseconds(1500);
-    Wire.begin(); // Initialize the I2C bus for the compass
+
+    Wire.begin(); // initialize the I2C bus
+
     if (DEBUG) {
         Serial.write("Power On\n");
     }
 }
 
 void getData() {
-    char inChar; // Where to store the character read
-    int index; // Index into array; where to store the character
+    char inChar;
+    int index;
     for(index = 0; index < 5; index++) {
-        while (Serial.available() == 0); //Null statment to wait until there is a character waiting on the Serial line
-        inChar = Serial.read(); // Read a character
+        // wait until there is a character waiting on the Serial line
+        while (Serial.available() == 0);
+        inChar = Serial.read(); // read a character
         if(inChar != '\n') {
-            inData[index] = inChar; // Store it
+            inData[index] = inChar;
         } 
         else {
             break;
         }
     }
-    inData[index] = '\0'; // Null terminate the string
+    inData[index] = '\0'; // terminate the string
 }
 
 void setServo(char servoChar, int turnAmount){
@@ -59,7 +63,7 @@ int getAmount() {
 }
 
 float readCompass() {
-    return cmps10.bearing(); // Print the sensor readings to the serial port.
+    return cmps10.bearing();
 }
 
 void loop() {
@@ -69,19 +73,19 @@ void loop() {
             if (DEBUG) {
                 Serial.print("c");
             }
-            Serial.println(readCompass()); //Compass Read
+            Serial.println(readCompass());
             break;
         case 'r':
             if (DEBUG) {
                 Serial.println("r");
             }
-            setServo('R', getAmount()); // Rudder Set
+            setServo('R', getAmount());
             break;
         case 's':
             if (DEBUG) {
                 Serial.println("s");
             }
-            setServo('S', getAmount()); // Sail Set
+            setServo('S', getAmount());
             break;
     }
 }

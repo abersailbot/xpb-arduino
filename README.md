@@ -9,7 +9,7 @@ compass.
 ```bash
 $ git clone https://github.com/abersailbot/kitty-arduino.git
 $ cd kitty-arduino
-$ git clone https://github.com/kragniz/CMPS10.git lib
+$ git submodule init
 ```
 
 Now, if ino tool is installed correctly (if you're using

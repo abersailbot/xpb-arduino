@@ -2,8 +2,8 @@
 #include <Servo.h>
 #include <Wire.h>
 
-Servo myRudderServo;
-Servo mySailServo;
+Servo rudder;
+Servo sail;
 CMPS10 cmps10; // compass
 
 char inData[6]; // allocate some space for the string
@@ -13,12 +13,12 @@ int DEBUG = 1;
 void setup() {
     Serial.begin(9600);
 
-    myRudderServo.attach(10, 1060, 1920);
-    mySailServo.attach(9, 1050, 1930);
+    rudder.attach(10, 1060, 1920);
+    sail.attach(9, 1050, 1930);
 
     // set default positions
-    myRudderServo.writeMicroseconds(1500);
-    mySailServo.writeMicroseconds(1500);
+    rudder.writeMicroseconds(1500);
+    sail.writeMicroseconds(1500);
 
     Wire.begin(); // initialize the I2C bus
 
@@ -46,12 +46,12 @@ void getData() {
 
 void move_rudder(int amount) {
     amount = constrain(amount, 1060, 1920);
-    myRudderServo.writeMicroseconds(amount);
+    rudder.writeMicroseconds(amount);
 }
 
 void move_sail(int amount) {
     amount = constrain(amount, 1050, 1930);
-    mySailServo.writeMicroseconds(amount);
+    sail.writeMicroseconds(amount);
 }
 
 int getAmount() {

@@ -44,15 +44,14 @@ void getData() {
     inData[index] = '\0'; // terminate the string
 }
 
-void setServo(char servoChar, int turnAmount){
-    if ('R' == servoChar) {
-        turnAmount = constrain(turnAmount, 1060, 1920);
-        myRudderServo.writeMicroseconds(turnAmount);
-    }
-    else {
-        turnAmount = constrain(turnAmount, 1050, 1930);
-        mySailServo.writeMicroseconds(turnAmount);
-    }
+void move_rudder(int amount) {
+    turnAmount = constrain(turnAmount, 1060, 1920);
+    myRudderServo.writeMicroseconds(turnAmount);
+}
+
+void move_sail(int amount) {
+    turnAmount = constrain(turnAmount, 1050, 1930);
+    mySailServo.writeMicroseconds(turnAmount);
 }
 
 int getAmount() {
@@ -79,13 +78,13 @@ void loop() {
             if (DEBUG) {
                 Serial.println("r");
             }
-            setServo('R', getAmount());
+            move_rudder(getAmount());
             break;
         case 's':
             if (DEBUG) {
                 Serial.println("s");
             }
-            setServo('S', getAmount());
+            move_sail(getAmount());
             break;
     }
 }

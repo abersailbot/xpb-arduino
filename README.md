@@ -10,6 +10,7 @@ compass.
 $ git clone https://github.com/abersailbot/kitty-arduino.git
 $ cd kitty-arduino
 $ git submodule init
+$ git submodule update
 ```
 
 Now, if ino tool is installed correctly (if you're using

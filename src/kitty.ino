@@ -30,7 +30,7 @@ void setup() {
 void getData() {
     char inChar;
     int index;
-    for(index = 0; index < 5; index++) {
+    for (index = 0; index < 5; index++) {
         // wait until there is a character waiting on the Serial line
         while (Serial.available() == 0);
         inChar = Serial.read(); // read a character
@@ -45,7 +45,7 @@ void getData() {
 }
 
 void setServo(char servoChar, int turnAmount){
-    if('R' == servoChar) {
+    if ('R' == servoChar) {
         turnAmount = constrain(turnAmount, 1060, 1920);
         myRudderServo.writeMicroseconds(turnAmount);
     }
@@ -68,7 +68,7 @@ float readCompass() {
 
 void loop() {
     getData();
-    switch(inData[0]){
+    switch (inData[0]){
         case 'c':
             if (DEBUG) {
                 Serial.print("c");

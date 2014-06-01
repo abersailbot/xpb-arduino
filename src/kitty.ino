@@ -2,13 +2,27 @@
 #include <Servo.h>
 #include <Wire.h>
 
+#define DEBUG 1
+
 Servo rudder;
 Servo sail;
 CMPS10 cmps10; // compass
 
 char current_line[6]; // allocate some space for the string
 
-int DEBUG = 1;
+void log(char* message) {
+    if (DEBUG) {
+        Serial.println(message);
+    }
+}
+
+void log_int(char* name, int _int) {
+    if (DEBUG) {
+        char line[strlen(name) + 15];
+        sprintf(line, "{\"%s\": %d}", name, _int);
+        log(line);
+    }
+}
 
 void setup() {
     Serial.begin(9600);
@@ -22,10 +36,7 @@ void setup() {
 
     // initialize the I2C bus
     Wire.begin();
-
-    if (DEBUG) {
-        Serial.write("Power On\n");
-    }
+    log("{\"started\": true}");
 }
 
 void read_line(char* line) {
@@ -49,6 +60,7 @@ void read_line(char* line) {
 void move_rudder(int amount) {
     amount = constrain(amount, 1060, 1920);
     rudder.writeMicroseconds(amount);
+    log_int("rudder", amount);
 }
 
 void move_sail(int amount) {
@@ -59,12 +71,11 @@ void move_sail(int amount) {
 int getAmount() {
     int amount;
     amount = (int) strtol(current_line+1, NULL, 10);
-    Serial.println(amount);
     return amount;
 }
 
 float readCompass() {
-    return cmps10.bearing();
+    Serial.println(cmps10.bearing());
 }
 
 void loop() {
@@ -74,7 +85,7 @@ void loop() {
             if (DEBUG) {
                 Serial.print("c");
             }
-            Serial.println(readCompass());
+            readCompass();
             break;
         case 'r':
             if (DEBUG) {

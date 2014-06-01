@@ -10,13 +10,7 @@ CMPS10 cmps10; // compass
 
 char current_line[6]; // allocate some space for the string
 
-void log(char* message) {
-    if (DEBUG) {
-        Serial.println(message);
-    }
-}
-
-void log_int(char* name, int _int) {
+void log_json_int(char* name, int _int) {
     if (DEBUG) {
         Serial.print("{\"");
         Serial.print(name);
@@ -26,7 +20,7 @@ void log_int(char* name, int _int) {
     }
 }
 
-void log_float(char* name, float _float) {
+void log_json_float(char* name, float _float) {
     if (DEBUG) {
         Serial.print("{\"");
         Serial.print(name);
@@ -48,7 +42,9 @@ void setup() {
 
     // initialize the I2C bus
     Wire.begin();
-    log("{\"started\": true}");
+
+    // tell the client we've started
+    Serial.println("{\"started\": true}");
 }
 
 void read_line(char* line) {
@@ -72,13 +68,13 @@ void read_line(char* line) {
 void move_rudder(int amount) {
     amount = constrain(amount, 1060, 1920);
     rudder.writeMicroseconds(amount);
-    log_int("rudder", amount);
+    log_json_int("rudder", amount);
 }
 
 void move_sail(int amount) {
     amount = constrain(amount, 1050, 1930);
     sail.writeMicroseconds(amount);
-    log_int("sail", amount);
+    log_json_int("sail", amount);
 }
 
 int get_amount(char* line) {
@@ -88,7 +84,7 @@ int get_amount(char* line) {
 }
 
 float read_compass() {
-    log_float("compass", cmps10.bearing());
+    log_json_float("compass", cmps10.bearing());
 }
 
 void loop() {

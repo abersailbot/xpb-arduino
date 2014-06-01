@@ -6,7 +6,7 @@ Servo rudder;
 Servo sail;
 CMPS10 cmps10; // compass
 
-char inData[6]; // allocate some space for the string
+char current_line[6]; // allocate some space for the string
 
 int DEBUG = 1;
 
@@ -20,28 +20,30 @@ void setup() {
     rudder.writeMicroseconds(1500);
     sail.writeMicroseconds(1500);
 
-    Wire.begin(); // initialize the I2C bus
+    // initialize the I2C bus
+    Wire.begin();
 
     if (DEBUG) {
         Serial.write("Power On\n");
     }
 }
 
-void getData() {
-    char inChar;
+void read_line(char* line) {
+    char c;
     int index;
     for (index = 0; index < 5; index++) {
         // wait until there is a character waiting on the Serial line
         while (Serial.available() == 0);
-        inChar = Serial.read(); // read a character
-        if(inChar != '\n') {
-            inData[index] = inChar;
-        } 
-        else {
+        // read a character
+        c = Serial.read();
+        if (c == '\n') {
             break;
+        } else {
+            line[index] = c;
         }
     }
-    inData[index] = '\0'; // terminate the string
+    // terminate the string
+    line[index] = '\0';
 }
 
 void move_rudder(int amount) {
@@ -56,7 +58,7 @@ void move_sail(int amount) {
 
 int getAmount() {
     int amount;
-    amount = (int) strtol(inData+1, NULL, 10);
+    amount = (int) strtol(current_line+1, NULL, 10);
     Serial.println(amount);
     return amount;
 }
@@ -66,8 +68,8 @@ float readCompass() {
 }
 
 void loop() {
-    getData();
-    switch (inData[0]){
+    read_line(current_line);
+    switch (current_line[0]){
         case 'c':
             if (DEBUG) {
                 Serial.print("c");

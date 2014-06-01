@@ -68,15 +68,15 @@ void read_line(char* line) {
     line[index] = '\0';
 }
 
-void move_rudder(int amount) {
-    // move the rudder to amount
+void set_rudder(int amount) {
+    // set the rudder to amount
     amount = constrain(amount, 1060, 1920);
     rudder.writeMicroseconds(amount);
     log_json_int("rudder", amount);
 }
 
-void move_sail(int amount) {
-    // move the sail to amount
+void set_sail(int amount) {
+    // set the sail to amount
     amount = constrain(amount, 1050, 1930);
     sail.writeMicroseconds(amount);
     log_json_int("sail", amount);
@@ -101,10 +101,10 @@ void loop() {
             read_compass();
             break;
         case 'r':
-            move_rudder(get_amount(current_line));
+            set_rudder(get_amount(current_line));
             break;
         case 's':
-            move_sail(get_amount(current_line));
+            set_sail(get_amount(current_line));
             break;
     }
 }

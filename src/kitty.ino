@@ -81,9 +81,9 @@ void move_sail(int amount) {
     log_int("sail", amount);
 }
 
-int getAmount() {
+int get_amount(char* line) {
     int amount;
-    amount = (int) strtol(current_line+1, NULL, 10);
+    amount = (int) strtol(line+1, NULL, 10);
     return amount;
 }
 
@@ -98,16 +98,10 @@ void loop() {
             read_compass();
             break;
         case 'r':
-            if (DEBUG) {
-                Serial.println("r");
-            }
-            move_rudder(getAmount());
+            move_rudder(get_amount(current_line));
             break;
         case 's':
-            if (DEBUG) {
-                Serial.println("s");
-            }
-            move_sail(getAmount());
+            move_sail(get_amount(current_line));
             break;
     }
 }

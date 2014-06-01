@@ -18,9 +18,21 @@ void log(char* message) {
 
 void log_int(char* name, int _int) {
     if (DEBUG) {
-        char line[strlen(name) + 15];
-        sprintf(line, "{\"%s\": %d}", name, _int);
-        log(line);
+        Serial.print("{\"");
+        Serial.print(name);
+        Serial.print("\": ");
+        Serial.print(_int);
+        Serial.println("}");
+    }
+}
+
+void log_float(char* name, float _float) {
+    if (DEBUG) {
+        Serial.print("{\"");
+        Serial.print(name);
+        Serial.print("\": ");
+        Serial.print(_float);
+        Serial.println("}");
     }
 }
 
@@ -66,6 +78,7 @@ void move_rudder(int amount) {
 void move_sail(int amount) {
     amount = constrain(amount, 1050, 1930);
     sail.writeMicroseconds(amount);
+    log_int("sail", amount);
 }
 
 int getAmount() {
@@ -74,18 +87,15 @@ int getAmount() {
     return amount;
 }
 
-float readCompass() {
-    Serial.println(cmps10.bearing());
+float read_compass() {
+    log_float("compass", cmps10.bearing());
 }
 
 void loop() {
     read_line(current_line);
     switch (current_line[0]){
         case 'c':
-            if (DEBUG) {
-                Serial.print("c");
-            }
-            readCompass();
+            read_compass();
             break;
         case 'r':
             if (DEBUG) {

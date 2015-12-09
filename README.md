@@ -1,17 +1,16 @@
-kitty-arduino
+dewi-arduino
 =============
 
-Code to run on kitty's arduino.
+Code to run on dewi's arduino.
 
-Depends on [CMPS10](https://github.com/kragniz/CMPS10) to interact with the
-compass.
+Uses HMC6343 compass through compass.h
 
 Installing
 ----------
 
 ```bash
-$ git clone https://github.com/abersailbot/kitty-arduino.git
-$ cd kitty-arduino
+$ git clone https://github.com/abersailbot/dewi-arduino.git
+$ cd dewi-arduino
 $ git submodule init
 $ git submodule update
 ```

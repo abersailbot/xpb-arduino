@@ -15,3 +15,8 @@ install:
 
 script:
     - platformio ci --board=uno --lib=lib
+
+notifications:
+    slack:
+      rooms:
+        secure: DiHEt0Ntwv23Qmf6mVH50iu4Pewqx1Bk35ebKR/x6TL7aL85Zr4LeZaeltvx78DPD5LPpaLS8GGCTTUC4T/VGP0bOgvSCg0ods9ENDHJdCY7uvzK8wPaKtZ0NT41xjPpw/SqKjVddj1rWQ1xTpR61l0tSYunQEPVQbFUyUbmDyc=

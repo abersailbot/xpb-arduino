@@ -112,15 +112,18 @@ int mod(int angle) {
     }
 }
 
-int readWindSensor() {
-    int pulseLength = 0;
-    int windAngle = 0;
-    pulseLength = pulseIn(windSensorPin, HIGH, 2000);
+int read_wind_sensor() {
+    int pulse_length = 0;
+    int wind_angle = 0;
+    pulse_length = pulseIn(windSensorPin, HIGH, 2000);
+
+    // 29 is the magic number where pulse time of 1036 = 359
     int magic = 29;
-    windAngle = ((pulseLength * 10) / magic); // 29 is the magic number where pulse time of 1036 = 359
-    windAngle = windAngle - offset;//Compensate for offset
-    windAngle = mod(windAngle); // Wrap Arround
-    log_json_int("wind", windAngle);
+
+    wind_angle = ((pulse_length * 10) / magic);
+    wind_angle = wind_angle - offset;  // compensate for offset
+    wind_angle = mod(wind_angle);  // wrap around
+    log_json_int("wind", wind_angle);
 }
 
 void set_offset(int amount) {
@@ -140,7 +143,7 @@ void loop() {
             read_compass();
             break;
         case 'w':
-            readWindSensor();
+            read_wind_sensor();
             break;
         case 'r':
             set_rudder(get_amount(current_line));

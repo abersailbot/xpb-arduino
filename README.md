@@ -11,23 +11,18 @@ Installing
 ```bash
 $ git clone https://github.com/abersailbot/dewi-arduino.git
 $ cd dewi-arduino
-$ git submodule init
-$ git submodule update
 ```
 
-Now, if ino tool is installed correctly (if you're using
-[kitty-provisioner](https://github.com/abersailbot/kitty-provisioner) this is
-done for you), you can compile with:
+You will need platformio to build. Install via:
 
 ```bash
-$ ino build
-$ ino upload
+$ pip install platformio
 ```
 
-Alternately, use make for all the previous steps:
+Then build and deploy with:
 
 ```bash
-$ make install
+$ platformio run
 ```
 
 Licence

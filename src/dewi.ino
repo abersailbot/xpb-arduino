@@ -124,7 +124,7 @@ int mod(int angle) {
         return mod(angle - 359);
     }
     else if (angle < 0) {
-        return mod(359 - angle);
+        return mod(359 + angle);
     }
     else {
         return angle;

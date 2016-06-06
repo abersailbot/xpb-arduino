@@ -39,10 +39,10 @@ int get_stored_offset(void) {
 }
 
 void store_offset(int new_offset) {
-	byte low_byte = ((new_offset >> 0) & 0xFF);
-	byte high_byte = ((new_offset >> 8) & 0xFF);
-	EEPROM.write(0, low_byte);
-	EEPROM.write(1, high_byte);
+    byte low_byte = ((new_offset >> 0) & 0xFF);
+    byte high_byte = ((new_offset >> 8) & 0xFF);
+    EEPROM.write(0, low_byte);
+    EEPROM.write(1, high_byte);
 }
 
 void log_json_int(char* key, int value) {
@@ -124,7 +124,7 @@ int mod(int angle) {
         return mod(angle - 359);
     }
     else if (angle < 0) {
-        return mod(359 - angle);
+        return mod(359 + angle);
     }
     else {
         return angle;

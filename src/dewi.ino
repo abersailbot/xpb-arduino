@@ -8,6 +8,8 @@
 
 #define MIN_SAIL_PWM 1100
 #define MAX_SAIL_PWM 2100
+#define MIN_RUDDER_PWM 1060
+#define MAX_RUDDER_PWM 1920
 
 Servo rudder;
 Servo sail;
@@ -23,7 +25,7 @@ void setup() {
 
     offset = get_stored_offset();
 
-    rudder.attach(10, 1060, 1920);
+    rudder.attach(10, MIN_RUDDER_PWM, MAX_RUDDER_PWM);
     sail.attach(9, MIN_SAIL_PWM, MAX_SAIL_PWM);
     // set default positions
     rudder.writeMicroseconds(1500);
@@ -93,7 +95,7 @@ void read_line(char* line) {
 
 void set_rudder(int amount) {
     // set the rudder to amount
-    amount = constrain(amount, 1060, 1920);
+    amount = constrain(amount, MIN_RUDDER_PWM, MAX_RUDDER_PWM);
     rudder.writeMicroseconds(amount);
     log_json_int("rudder", amount);
 }

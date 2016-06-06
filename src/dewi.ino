@@ -11,6 +11,8 @@
 #define MIN_RUDDER_PWM 1060
 #define MAX_RUDDER_PWM 1920
 
+#define COMPASS_OFFSET 77
+
 Servo rudder;
 Servo sail;
 int windSensorPin = A2;

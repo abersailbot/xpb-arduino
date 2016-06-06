@@ -6,6 +6,9 @@
 
 #define DEBUG 1
 
+#define MIN_SAIL_PWM 1100
+#define MAX_SAIL_PWM 2100
+
 Servo rudder;
 Servo sail;
 int windSensorPin = A2;
@@ -21,7 +24,7 @@ void setup() {
     offset = get_stored_offset();
 
     rudder.attach(10, 1060, 1920);
-    sail.attach(9, 1100, 2100);
+    sail.attach(9, MIN_SAIL_PWM, MAX_SAIL_PWM);
     // set default positions
     rudder.writeMicroseconds(1500);
     sail.writeMicroseconds(1500);
@@ -97,7 +100,7 @@ void set_rudder(int amount) {
 
 void set_sail(int amount) {
     // set the sail to amount
-    amount = constrain(amount, 1100, 2100);
+    amount = constrain(amount, MIN_SAIL_PWM, MAX_SAIL_PWM);
     sail.writeMicroseconds(amount);
     log_json_int("sail", amount);
 }

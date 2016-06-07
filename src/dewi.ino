@@ -149,13 +149,7 @@ int read_wind_sensor() {
 }
 
 void loop() {
-    if(DEBUG == 1){
-        Serial.println("Running Debug in loop");
-    }  
     read_line(current_line);
-    if(DEBUG == 1){
-        Serial.println(current_line);
-    }
 
     int wind_angle;
     float bearing;

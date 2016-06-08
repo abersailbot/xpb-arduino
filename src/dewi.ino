@@ -7,7 +7,7 @@
 #define DEBUG 1
 
 #define MIN_SAIL_PWM 1100
-#define MAX_SAIL_PWM 2100
+#define MAX_SAIL_PWM 2000
 #define MIN_RUDDER_PWM 1060
 #define MAX_RUDDER_PWM 1920
 

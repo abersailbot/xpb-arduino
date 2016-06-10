@@ -45,11 +45,15 @@ int get_stored_offset(void) {
     return stored_offset;
 }
 
-void store_offset(int new_offset) {
-    byte low_byte = ((new_offset >> 0) & 0xFF);
-    byte high_byte = ((new_offset >> 8) & 0xFF);
-    EEPROM.write(0, low_byte);
-    EEPROM.write(1, high_byte);
+void store_offset(int new_offset) {    // do we need a full int for this
+    if((new_offset - offset) != 0){    // could save ~6.6ms and write cycles, 
+                                       // given we do no sort of load balencing
+        byte low_byte = ((new_offset >> 0) & 0xFF);
+        byte high_byte = ((new_offset >> 8) & 0xFF);
+        EEPROM.write(0, low_byte);
+        EEPROM.write(1, high_byte);
+        offset = new_offset();         // EEPROM be slow yo
+    }
 }
 
 void log_json_int(char* key, int value) {
@@ -173,7 +177,6 @@ void loop() {
             break;
         case 'o':
             store_offset(read_wind_sensor());
-            offset = get_stored_offset();
             break;
     }
 }

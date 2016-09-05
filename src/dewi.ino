@@ -17,7 +17,7 @@ Servo rudder;
 Servo sail;
 int windSensorPin = A2;
 int offset; // wind sensor offset
-char current_line[6];  // allocate some space for the request string
+char current_line[10];  // allocate some space for the request string
 
 
 void setup() {

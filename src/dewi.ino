@@ -126,15 +126,11 @@ float read_compass() {
 }
 
 int mod(int angle) {
-    if (angle > 359) {
-        return mod(angle - 359);
+    while(angle < 0){
+        angle += 360;
     }
-    else if (angle < 0) {
-        return mod(359 + angle);
-    }
-    else {
-        return angle;
-    }
+    angle = angle % 360;
+    return angle;
 }
 
 int read_wind_sensor() {

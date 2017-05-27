@@ -118,9 +118,10 @@ int get_amount(char* line) {
 
 float read_compass() {
     // read from the compass and output it
-    if (Compass.poll_data()) { // Send error if false(?)
+    if (Compass.poll_data()) { 
         return Compass.get_bearing();
     } else {
+        Serial.println("error, no data from compass"); // Send error if false(?)
         return 0;
     }
 }

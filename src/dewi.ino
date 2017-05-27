@@ -121,8 +121,8 @@ float read_compass() {
     if (Compass.poll_data()) { 
         return Compass.get_bearing();
     } else {
-        Serial.println("error, no data from compass"); // Send error if false(?)
-        return 0;
+      // Send error if false(?)
+        return -1;
     }
 }
 

@@ -116,13 +116,31 @@ int get_amount(char* line) {
     return amount;
 }
 
-float read_compass() {
+float read_compass_bearing() {
     // read from the compass and output it
     if (Compass.poll_data()) { 
         return Compass.get_bearing();
     } else {
       // Send error if false(?)
         return -1;
+    }
+}
+
+float read_compass_pitch(){
+    // read from the compass
+    if (Compass.poll_data()){
+        return Compass.get_pitch();
+    } else {
+        return -1
+    }
+}
+
+float read_compass_roll(){
+    // read from the compass
+    if (Compass.poll_data()){
+        return Compass.get_roll();
+    } else {
+        return -1
     }
 }
 
@@ -153,13 +171,23 @@ void loop() {
     read_line(current_line);
 
     int wind_angle;
-    float bearing;
+    float dispatchf;
 
     switch (current_line[0]) {
         case 'c':
-            bearing = read_compass() - COMPASS_OFFSET;  // compensate for offset
-            bearing = mod(bearing);  // wrap around
-            log_json_float("compass", bearing);
+            dispatchf = read_compass_bearing() - COMPASS_OFFSET;  // compensate for offset
+            dispatchf = mod(dispatchf);  // wrap around
+            log_json_float("compass", dispatchf);
+            break;
+        case 'p':
+            dispatchf = read_compass_pitch();
+            dispatchf = mod(dispatchf);  // wrap around
+            log_json_float("pitch", dispatchf);
+            break;
+        case '&': // r was already taken
+            dispatchf = read_compass_roll();
+            dispatchf = mod(dispatchf);  // wrap around
+            log_json_float("roll", dispatchf);
             break;
         case 'w':
             wind_angle = read_wind_sensor() - offset;  // compensate for offset

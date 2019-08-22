@@ -131,7 +131,7 @@ float read_compass_pitch(){
     if (Compass.poll_data()){
         return Compass.get_pitch();
     } else {
-        return -1
+        return -1;
     }
 }
 
@@ -140,7 +140,7 @@ float read_compass_roll(){
     if (Compass.poll_data()){
         return Compass.get_roll();
     } else {
-        return -1
+        return -1;
     }
 }
 

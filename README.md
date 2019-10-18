@@ -1,7 +1,7 @@
 dewi-arduino
 =============
 
-Code to run on dewi's arduino.
+Code to run an eXperimental Polystyrene Boat's arduino.
 
 Uses HMC6343 compass through compass.h
 
@@ -9,8 +9,8 @@ Installing
 ----------
 
 ```bash
-$ git clone https://github.com/abersailbot/dewi-arduino.git
-$ cd dewi-arduino
+$ git clone https://github.com/abersailbot/xpb-arduino.git
+$ cd xpb-arduino
 ```
 
 You will need platformio to build. Install via:

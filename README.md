@@ -1,4 +1,4 @@
-dewi-arduino
+xpb-arduino
 =============
 
 Code to run an eXperimental Polystyrene Boat's arduino.
